@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoChallenge — Community Cleanup Gamified</title>
+    <meta name="description" content="A clean, professional platform for environmental action. Join the movement today.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Global Animated Background -->
+    <div class="global-bg-container">
+        <div class="global-bg"></div>
+    </div>
+    <div class="global-overlay"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <i class="fas fa-seedling"></i> EcoChallenge
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#challenges">Challenges</a></li>
+                <li><a href="#leaderboard">Ranking</a></li>
+                <li><a href="#profile">Profile</a></li>
+            </ul>
+            <button class="btn btn-primary" onclick="window.location.hash='#challenges'">Get Started</button>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="active">
+        <!-- Animated Nature Overlay -->
+        <div class="home-particles">
+            <!-- Soft glow particles -->
+            <div class="particle" style="top: 15%; left: 8%;  width: 24px; height: 24px; animation-delay: 0s;"></div>
+            <div class="particle" style="top: 55%; left: 75%; width: 36px; height: 36px; animation-delay: 3s;"></div>
+            <div class="particle" style="top: 35%; left: 45%; width: 18px; height: 18px; animation-delay: 6s;"></div>
+            <div class="particle" style="top: 70%; left: 20%; width: 28px; height: 28px; animation-delay: 9s;"></div>
+            <div class="particle" style="top: 25%; left: 85%; width: 14px; height: 14px; animation-delay: 12s;"></div>
+            <div class="particle" style="top: 80%; left: 55%; width: 20px; height: 20px; animation-delay: 15s;"></div>
+
+            <!-- 20 Falling Leaves — negative delays = already falling on page open -->
+            <div class="leaf" style="left:  2%; animation-delay:  -3s; animation-duration:16s; font-size:1.8rem;">🍃</div>
+            <div class="leaf" style="left:  8%; animation-delay:  -8s; animation-duration:20s; font-size:1.3rem;">🌿</div>
+            <div class="leaf" style="left: 14%; animation-delay:  -1s; animation-duration:14s; font-size:2.0rem;">🍂</div>
+            <div class="leaf" style="left: 20%; animation-delay: -12s; animation-duration:18s; font-size:1.5rem;">🍃</div>
+            <div class="leaf" style="left: 27%; animation-delay:  -5s; animation-duration:15s; font-size:1.2rem;">🌱</div>
+            <div class="leaf" style="left: 33%; animation-delay: -10s; animation-duration:21s; font-size:1.9rem;">🍃</div>
+            <div class="leaf" style="left: 40%; animation-delay:  -2s; animation-duration:17s; font-size:1.4rem;">🍂</div>
+            <div class="leaf" style="left: 47%; animation-delay:  -7s; animation-duration:22s; font-size:2.1rem;">🌿</div>
+            <div class="leaf" style="left: 53%; animation-delay: -14s; animation-duration:16s; font-size:1.3rem;">🍃</div>
+            <div class="leaf" style="left: 59%; animation-delay:  -4s; animation-duration:19s; font-size:1.6rem;">🌱</div>
+            <div class="leaf" style="left: 65%; animation-delay: -11s; animation-duration:15s; font-size:1.2rem;">🍂</div>
+            <div class="leaf" style="left: 71%; animation-delay:  -6s; animation-duration:23s; font-size:1.8rem;">🍃</div>
+            <div class="leaf" style="left: 76%; animation-delay: -15s; animation-duration:18s; font-size:1.5rem;">🌿</div>
+            <div class="leaf" style="left: 81%; animation-delay:  -9s; animation-duration:16s; font-size:1.3rem;">🍃</div>
+            <div class="leaf" style="left: 86%; animation-delay:  -3s; animation-duration:20s; font-size:1.7rem;">🍂</div>
+            <div class="leaf" style="left: 91%; animation-delay: -13s; animation-duration:17s; font-size:1.4rem;">🌱</div>
+            <div class="leaf" style="left: 95%; animation-delay:  -1s; animation-duration:22s; font-size:2.0rem;">🍃</div>
+            <div class="leaf" style="left: 23%; animation-delay: -16s; animation-duration:19s; font-size:1.2rem;">🌿</div>
+            <div class="leaf" style="left: 44%; animation-delay:  -8s; animation-duration:15s; font-size:1.6rem;">🍃</div>
+            <div class="leaf" style="left: 68%; animation-delay: -18s; animation-duration:14s; font-size:1.4rem;">🍂</div>
+
+            <!-- Wave shimmer at bottom -->
+            <div class="wave-shimmer"></div>
+        </div>
+        <div class="container hero">
+            <div class="hero-badge">🌿 Join 8,500+ Eco Heroes</div>
+            <h1 class="hero-title">Small Actions.<br><span class="hero-highlight">Big Impact.</span></h1>
+            <p class="hero-sub">EcoChallenge turns community cleanup into a rewarding experience.<br>Restore nature, earn points, and inspire others.</p>
+            <div class="hero-cta">
+                <button class="btn btn-primary btn-glow" onclick="window.location.hash='#challenges'"><i class="fas fa-seedling"></i> Browse Challenges</button>
+                <button class="btn btn-secondary" onclick="window.location.hash='#dashboard'"><i class="fas fa-chart-line"></i> My Progress</button>
+            </div>
+
+            <!-- Animated Stats -->
+            <div class="content-card stats-card">
+                <div class="grid-3">
+                    <div class="stat-item">
+                        <div class="stat-emoji">🌍</div>
+                        <span class="stat-value count-up" data-target="1284">0</span>
+                        <p style="color: var(--text-muted)">Areas Restored</p>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-emoji">🦸</div>
+                        <span class="stat-value count-up" data-target="8500">0</span>
+                        <p style="color: var(--text-muted)">Eco Heroes</p>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-emoji">♻️</div>
+                        <span class="stat-value count-up" data-target="5200">0</span>
+                        <p style="color: var(--text-muted)">Kg Waste Removed</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How it Works -->
+            <div class="content-card">
+                <h2 style="text-align: center; margin-bottom: 40px; font-size: 2.2rem;">How it works</h2>
+                <div class="grid-3">
+                    <div class="card step-card" style="animation-delay: 0.1s;">
+                        <div class="step-icon-wrap">📸</div>
+                        <div class="step-num">Step 1</div>
+                        <h3>Report Area</h3>
+                        <p style="color: var(--text-muted); margin-top: 10px;">Upload a geo-tagged 'Before' photo of a polluted spot near you.</p>
+                    </div>
+                    <div class="card step-card" style="animation-delay: 0.3s;">
+                        <div class="step-icon-wrap">🧹</div>
+                        <div class="step-num">Step 2</div>
+                        <h3>Clean it Up</h3>
+                        <p style="color: var(--text-muted); margin-top: 10px;">Take action and restore the beauty of the location.</p>
+                    </div>
+                    <div class="card step-card" style="animation-delay: 0.5s;">
+                        <div class="step-icon-wrap">🏆</div>
+                        <div class="step-num">Step 3</div>
+                        <h3>Claim Reward</h3>
+                        <p style="color: var(--text-muted); margin-top: 10px;">Upload a geo-tagged 'After' photo to verify &amp; earn badges and points.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard">
+        <div class="container">
+            <div class="content-card">
+                <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Hero Dashboard</h2>
+                <p style="color: var(--text-muted); margin-bottom: 40px;">Welcome back, <span id="user-name-display" style="color: var(--primary); font-weight: 700;">Eco Hero</span>!</p>
+
+                <div class="grid-3">
+                    <div class="card">
+                        <h3 style="margin-bottom: 16px;">Guardian Level</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 10px;">Level 4 • <span id="user-points" style="font-weight: 700;">1,450</span> PTS</p>
+                        <div class="progress-bar">
+                            <div id="level-progress-bar" class="progress-fill" style="width: 65%;"></div>
+                        </div>
+                    </div>
+                    <div class="card" style="display: flex; align-items: center; gap: 20px;">
+                        <span style="font-size: 2.5rem;">🔥</span>
+                        <div>
+                            <span style="font-weight: 700; display: block; font-size: 1.25rem;">12 Days</span>
+                            <p style="color: var(--text-muted); font-size: 0.85rem;">Cleanup Streak</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>Local Impact</h3>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 5px;">4 tasks nearby need you.</p>
+                        <button class="btn btn-secondary" style="width: 100%; margin-top: 15px; padding: 10px;" onclick="window.location.hash='#challenges'">View Tasks</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenges Section -->
+    <section id="challenges">
+        <div class="container">
+            <div class="content-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+                    <h2 style="font-size: 2.5rem;">Cleanup Tasks</h2>
+                    <button class="btn btn-primary" onclick="toggleModal('create-challenge-modal', true)">+ New Task</button>
+                </div>
+                <div class="grid-3" id="challenges-grid"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leaderboard Section -->
+    <section id="leaderboard">
+        <div class="container">
+            <div class="leaderboard-header content-card">
+                <h2 style="font-size: 2.5rem; margin-bottom: 10px;">🏆 Regional Heroes</h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem;">Top Cleaners Within 12 km. Every piece of waste removed brings us closer to a greener world!</p>
+            </div>
+
+            <div class="ranking-table-container content-card reveal" style="padding: 0; overflow: hidden; border: none;">
+                <table class="modern-table" style="border-spacing: 0;">
+                    <thead>
+                        <tr style="background: var(--primary-soft);">
+                            <th style="padding: 20px 30px; border-bottom: 2px solid var(--border);">Rank</th>
+                            <th style="padding: 20px 30px; border-bottom: 2px solid var(--border);">Hero</th>
+                            <th style="padding: 20px 30px; border-bottom: 2px solid var(--border);">Cleanups</th>
+                            <th style="padding: 20px 30px; border-bottom: 2px solid var(--border); text-align: right;">Total Points</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Section -->
+    <section id="profile">
+        <div class="container">
+            <div class="content-card" style="text-align: center;">
+                <div id="profile-avatar-display" style="width: 120px; height: 120px; background: var(--primary-soft); color: var(--primary); border-radius: 50%; margin: 0 auto 24px; display: flex; align-items: center; justify-content: center; font-size: 3rem; border: 3px solid var(--primary); box-shadow: var(--shadow);">
+                    👤
+                </div>
+                <h2 id="profile-name-title" style="margin-bottom: 8px;">Eco Hero</h2>
+                <p style="color: var(--text-muted); margin-bottom: 30px;">Level 4 Guardian • Joined April 2024</p>
+                <button class="btn btn-secondary" onclick="toggleModal('edit-profile-modal', true)">Edit Profile</button>
+                <button class="btn btn-outline" style="color: #ef4444; border-color: #ef4444; margin-left: 10px; font-size: 0.8rem;" onclick="if(confirm('Reset all data? This cannot be undone.')){localStorage.clear(); location.reload();}">Reset Data</button>
+                
+                <h3 style="margin-top: 60px; margin-bottom: 24px;">Achievements</h3>
+                <div class="badge-grid" id="profile-badges"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals -->
+    <div id="create-challenge-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span style="float: right; cursor: pointer; color: var(--text-light);" onclick="toggleModal('create-challenge-modal', false)">✕</span>
+            <h2 style="margin-bottom: 24px;">Report Area</h2>
+            <form id="challenge-form">
+                <input type="text" class="form-input" placeholder="Area Name" required>
+                <textarea class="form-input" placeholder="Short description..." style="height: 100px;"></textarea>
+                <div id="before-preview-container" style="display: none; margin-bottom: 20px;">
+                    <img id="before-preview" src="" style="width: 100%; border-radius: 12px; box-shadow: var(--shadow);">
+                </div>
+                <button type="button" class="btn btn-secondary" style="width: 100%; margin-bottom: 20px;" onclick="document.getElementById('before-img-input').click()">Take 'Before' Photo</button>
+                <input type="file" id="before-img-input" accept="image/*" capture="environment" style="display: none;" onchange="previewImage(this, 'before-preview-container', 'before-preview', 'before-geo-badge')">
+                <button type="button" class="btn btn-primary" style="width: 100%;" onclick="handleCreateChallenge(event)">Post Challenge</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="complete-challenge-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span style="float: right; cursor: pointer; color: var(--text-light);" onclick="toggleModal('complete-challenge-modal', false)">✕</span>
+            <h2 style="margin-bottom: 12px;">🏆 Claim Points</h2>
+            <p style="color: var(--text-muted); margin-bottom: 14px;">Prove you cleaned the area by uploading a <strong>geo-tagged 'After' photo</strong>.</p>
+            <!-- Geo-tag requirement notice -->
+            <div style="background:#fff7ed; border:1px solid #fed7aa; border-radius:12px; padding:12px 16px; margin-bottom:18px; font-size:0.82rem; color:#92400e; display:flex; align-items:flex-start; gap:10px;">
+                <i class="fas fa-map-marker-alt" style="margin-top:2px; color:#f59e0b;"></i>
+                <span><strong>Geo-Tag is Required.</strong> Enable location on your camera before taking the photo. Without a valid geo-tag, the task cannot be marked complete.</span>
+            </div>
+            <div id="after-preview-container" style="display: none; margin-bottom: 20px;">
+                <img id="after-preview" src="" style="width: 100%; border-radius: 12px; box-shadow: var(--shadow);">
+                <p id="after-geo-badge" style="font-size: 0.85rem; margin-top: 10px; font-weight: 700;"></p>
+            </div>
+            <button type="button" class="btn btn-secondary" style="width: 100%; margin-bottom: 12px;" onclick="document.getElementById('after-img-input').click()"><i class="fas fa-camera"></i> &nbsp;Upload Geo-Tagged 'After' Photo</button>
+            <input type="file" id="after-img-input" accept="image/*" capture="environment" style="display: none;" onchange="handleAfterImageUpload(this)">
+            <button id="claim-points-btn" class="btn btn-primary" style="width:100%; opacity:0.4; pointer-events:none;" onclick="handleCompleteChallenge(event)"><i class="fas fa-check-circle"></i> &nbsp;Verify &amp; Claim PTS</button>
+        </div>
+    </div>
+
+    <div id="edit-profile-modal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 450px;">
+            <h2 style="margin-bottom: 24px;">Hero Profile</h2>
+            <div id="avatar-grid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 24px;"></div>
+            <input type="text" id="profile-name-input" class="form-input" placeholder="Hero Name">
+            <input type="hidden" id="profile-emoji-input">
+            <button class="btn btn-primary" style="width: 100%;" onclick="handleProfileUpdate(event)">Save Profile</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 EcoChallenge Movement. Built for a cleaner world.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
