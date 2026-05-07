@@ -25,6 +25,7 @@
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#dashboard">Dashboard</a></li>
                 <li><a href="#challenges">Challenges</a></li>
+                <li><a href="#communities">Communities</a></li>
                 <li><a href="#leaderboard">Ranking</a></li>
                 <li><a href="#profile">Profile</a></li>
             </ul>
@@ -76,27 +77,6 @@
             <div class="hero-cta">
                 <button class="btn btn-primary btn-glow" onclick="window.location.hash='#challenges'"><i class="fas fa-seedling"></i> Browse Challenges</button>
                 <button class="btn btn-secondary" onclick="window.location.hash='#dashboard'"><i class="fas fa-chart-line"></i> My Progress</button>
-            </div>
-
-            <!-- Animated Stats -->
-            <div class="content-card stats-card">
-                <div class="grid-3">
-                    <div class="stat-item">
-                        <div class="stat-emoji">🌍</div>
-                        <span class="stat-value count-up" data-target="1284">0</span>
-                        <p style="color: var(--text-muted)">Areas Restored</p>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-emoji">🦸</div>
-                        <span class="stat-value count-up" data-target="8500">0</span>
-                        <p style="color: var(--text-muted)">Eco Heroes</p>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-emoji">♻️</div>
-                        <span class="stat-value count-up" data-target="5200">0</span>
-                        <p style="color: var(--text-muted)">Kg Waste Removed</p>
-                    </div>
-                </div>
             </div>
 
             <!-- How it Works -->
@@ -154,6 +134,14 @@
                         <button class="btn btn-secondary" style="width: 100%; margin-top: 15px; padding: 10px;" onclick="window.location.hash='#challenges'">View Tasks</button>
                     </div>
                 </div>
+
+                <!-- Nearby Heroes Section -->
+                <div style="margin-top: 40px;">
+                    <h3 style="margin-bottom: 20px;"><i class="fas fa-users" style="color: var(--primary);"></i> Nearby Heroes</h3>
+                    <div id="nearby-heroes-list" class="grid-3">
+                        <!-- Nearby heroes will be populated here -->
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -195,6 +183,21 @@
         </div>
     </section>
 
+    <!-- Communities Section -->
+    <section id="communities">
+        <div class="container">
+            <div class="content-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+                    <h2 style="font-size: 2.5rem;">Local Communities</h2>
+                    <button class="btn btn-primary" onclick="toggleModal('create-community-modal', true)">+ Create Community</button>
+                </div>
+                <div class="grid-3" id="communities-grid">
+                    <!-- Communities will be rendered here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Profile Section -->
     <section id="profile">
         <div class="container">
@@ -219,14 +222,31 @@
             <span style="float: right; cursor: pointer; color: var(--text-light);" onclick="toggleModal('create-challenge-modal', false)">✕</span>
             <h2 style="margin-bottom: 24px;">Report Area</h2>
             <form id="challenge-form">
-                <input type="text" class="form-input" placeholder="Area Name" required>
-                <textarea class="form-input" placeholder="Short description..." style="height: 100px;"></textarea>
+                <input type="text" id="task-name-input" class="form-input" placeholder="Area Name (e.g. Pine Park Entrance)" required>
+                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                    <input type="text" id="task-location-input" class="form-input" placeholder="Exact Location" style="margin-bottom: 0; flex-grow: 1;">
+                    <button type="button" class="btn btn-secondary" title="Get Task Location" onclick="getTaskLocation()"><i class="fas fa-location-arrow"></i></button>
+                </div>
+                <textarea id="task-desc-input" class="form-input" placeholder="Describe the pollution issue..." style="height: 100px;"></textarea>
                 <div id="before-preview-container" style="display: none; margin-bottom: 20px;">
                     <img id="before-preview" src="" style="width: 100%; border-radius: 12px; box-shadow: var(--shadow);">
                 </div>
-                <button type="button" class="btn btn-secondary" style="width: 100%; margin-bottom: 20px;" onclick="document.getElementById('before-img-input').click()">Take 'Before' Photo</button>
+                <button type="button" class="btn btn-secondary" style="width: 100%; margin-bottom: 20px;" onclick="document.getElementById('before-img-input').click()"><i class="fas fa-camera"></i> &nbsp;Take 'Before' Photo</button>
                 <input type="file" id="before-img-input" accept="image/*" capture="environment" style="display: none;" onchange="previewImage(this, 'before-preview-container', 'before-preview', 'before-geo-badge')">
-                <button type="button" class="btn btn-primary" style="width: 100%;" onclick="handleCreateChallenge(event)">Post Challenge</button>
+                <button type="button" class="btn btn-primary" style="width: 100%;" onclick="handleCreateChallenge(event)">Post Challenge to Community</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="create-community-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span style="float: right; cursor: pointer; color: var(--text-light);" onclick="toggleModal('create-community-modal', false)">✕</span>
+            <h2 style="margin-bottom: 24px;">Start a Community</h2>
+            <form id="community-form">
+                <input type="text" id="comm-name-input" class="form-input" placeholder="Community Name (e.g. Green Mumbai)" required>
+                <input type="text" id="comm-location-input" class="form-input" placeholder="Primary Location">
+                <textarea id="comm-desc-input" class="form-input" placeholder="What is your community's mission?" style="height: 100px;"></textarea>
+                <button type="button" class="btn btn-primary" style="width: 100%;" onclick="handleCreateCommunity(event)">Launch Community</button>
             </form>
         </div>
     </div>
@@ -256,6 +276,10 @@
             <h2 style="margin-bottom: 24px;">Hero Profile</h2>
             <div id="avatar-grid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 24px;"></div>
             <input type="text" id="profile-name-input" class="form-input" placeholder="Hero Name">
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <input type="text" id="profile-location-input" class="form-input" placeholder="Your Location (e.g. New York, USA)" style="margin-bottom: 0; flex-grow: 1;">
+                <button class="btn btn-secondary" title="Get Current Location" onclick="getCurrentLocation()"><i class="fas fa-location-arrow"></i></button>
+            </div>
             <input type="hidden" id="profile-emoji-input">
             <button class="btn btn-primary" style="width: 100%;" onclick="handleProfileUpdate(event)">Save Profile</button>
         </div>

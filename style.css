@@ -812,3 +812,74 @@ footer {
         opacity: 0;
     }
 }
+
+/* Communities Background */
+.global-bg.bg-communities {
+    background-image: url('https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1920&q=80');
+    opacity: 0.15;
+}
+
+/* New Home Page Background Overwrite */
+.global-bg.bg-home {
+    background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1920&q=80') !important;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2 !important;
+}
+
+/* Restoring Previous Home Page Background Style */
+.global-bg.bg-home {
+    background-image: url('https://images.unsplash.com/photo-1518173946687-a4c8a9b746f4?auto=format&fit=crop&w=1920&q=80') !important;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.12 !important;
+    filter: saturate(1.2);
+}
+
+/* Enhanced Home & Community Backgrounds */
+.global-bg.bg-home {
+    background-image: url('https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=1920&q=80') !important;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.28 !important;
+    filter: brightness(1.1) saturate(1.2);
+}
+
+.global-bg.bg-communities {
+    background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1920&q=80') !important;
+    opacity: 0.35 !important;
+    filter: brightness(1.2);
+}
+
+/* Project-Specific Home Background (Clean Environment Theme) */
+.global-bg.bg-home {
+    background-image: url('https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1920&q=80') !important;
+    background-size: cover;
+    background-position: center 30%;
+    opacity: 0.25 !important;
+    filter: brightness(1.1) contrast(1.1) saturate(1.1);
+}
+
+/* Bright & Vibrant Home Background Override */
+.global-bg.bg-home {
+    background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1920&q=80') !important;
+    opacity: 0.45 !important;
+    filter: brightness(1.2) saturate(1.3) contrast(1.1);
+}
+
+/* Majestic Big Tree Home Background */
+.global-bg.bg-home {
+    background-image: url('https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1920&q=80') !important;
+    background-position: center bottom;
+    opacity: 0.48 !important;
+    filter: brightness(1.15) saturate(1.25);
+}
+
+/* Community Cleanup Background */
+.global-bg.bg-communities {
+    background-image: url('https://images.unsplash.com/photo-1618477461853-cf6ed80faba5?auto=format&fit=crop&w=1920&q=80') !important;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.4 !important;
+    filter: brightness(1.1) saturate(1.15);
+}

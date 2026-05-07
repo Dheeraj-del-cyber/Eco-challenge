@@ -9,7 +9,9 @@ const INITIAL_DATA = {
         points: 1450,
         level: 4,
         cleanups: 12,
-        isNew: true
+        isNew: true,
+        location: "Determining...",
+        communities: [2] // Joined Ocean Protectors by default
     },
     challenges: [
         { id: 1, title: "Litter at Pine Park", location: "Pine Park", status: "active", image: "https://images.unsplash.com/photo-1618477461853-cf6ed80faba5?auto=format&fit=crop&w=600&q=80", points: 500 },
@@ -28,7 +30,11 @@ const INITIAL_DATA = {
         { name: "Nature Guardian", icon: "https://cdn-icons-png.flaticon.com/512/2913/2913520.png", unlocked: false, desc: "Restored a major park" },
         { name: "Elite Scout", icon: "https://cdn-icons-png.flaticon.com/512/2913/2913444.png", unlocked: false, desc: "Reported 10 polluted areas" }
     ],
-    avatars: ["👤", "🦊", "🌿", "🦸", "🌲", "🦁", "🐢", "🐳", "🐨", "🍄", "🍃", "🧤", "🏔️", "🐾", "🦋"]
+    avatars: ["👤", "🦊", "🌿", "🦸", "🌲", "🦁", "🐢", "🐳", "🐨", "🍄", "🍃", "🧤", "🏔️", "🐾", "🦋"],
+    communities: [
+        { id: 1, name: "Eco Warriors", location: "Global", members: 1250, description: "Dedicated to urban reforestation and waste reduction.", isJoined: false, createdBy: "EcoSentinel", isOwner: false },
+        { id: 2, name: "Ocean Protectors", location: "Coastal Regions", members: 840, description: "Cleaning our beaches and protecting marine life.", isJoined: true, createdBy: "PlanetGuardian", isOwner: false }
+    ]
 };
 
 let appState = JSON.parse(localStorage.getItem('eco_challenge_state')) || INITIAL_DATA;
@@ -46,6 +52,7 @@ function initApp() {
     renderProfile();
     renderDashboard();
     renderAvatarGrid();
+    renderCommunities();
 
     document.getElementById('challenge-form').addEventListener('submit', handleCreateChallenge);
     
@@ -84,7 +91,7 @@ function handleRoute() {
     const bg = document.querySelector('.global-bg');
     if (bg) {
         // Remove all previous background classes
-        bg.classList.remove('bg-home', 'bg-dashboard', 'bg-challenges', 'bg-leaderboard', 'bg-profile');
+        bg.classList.remove('bg-home', 'bg-dashboard', 'bg-challenges', 'bg-communities', 'bg-leaderboard', 'bg-profile');
         // Add the new one
         bg.classList.add(`bg-${pageId}`);
     }
@@ -121,18 +128,24 @@ function renderChallenges() {
                 <span class="badge" style="position: absolute; top: 10px; right: 10px; background: ${c.status === 'completed' ? '#10b981' : '#f59e0b'}; color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase;">
                     ${c.status}
                 </span>
+                <div style="position: absolute; bottom: 10px; left: 10px; background: rgba(255,255,255,0.9); padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; display: flex; align-items: center; gap: 5px; color: var(--text-main);">
+                    <i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> ${c.location || 'Global Area'}
+                </div>
             </div>
             <div style="flex-grow: 1;">
                 <h3 style="margin-bottom: 8px;">${c.title}</h3>
                 <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 20px;">${c.description}</p>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 15px;">
+                    Reported by <strong>${c.author || 'Eco Hero'}</strong>
+                </p>
             </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); pt: 20px; margin-top: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 15px; margin-top: 10px;">
                 <span style="font-weight: 700; color: var(--primary);">+${c.points} PTS</span>
                 ${c.status !== 'completed' ? `
                     <div style="display: flex; gap: 8px;">
-                        <button class="btn btn-secondary" style="padding: 8px 12px; font-size: 0.8rem;" onclick="openCompleteModal(${c.id})">Complete</button>
+                        <button class="btn btn-secondary" style="padding: 8px 12px; font-size: 0.8rem;" onclick="openCompleteModal(${c.id})">Complete Task</button>
                     </div>
-                ` : `<span style="color: var(--primary); font-weight: 600;">✅ Verified</span>`}
+                ` : `<span style="color: var(--primary); font-weight: 600;">✅ Verified Complete</span>`}
             </div>
         </div>
     `).join('');
@@ -198,6 +211,12 @@ function renderProfile() {
 
     document.getElementById('profile-name-title').innerText = appState.user.name;
     document.getElementById('profile-avatar-display').innerText = appState.user.avatar;
+    
+    // Add location display to profile subtitle
+    const profileSub = document.querySelector('#profile p');
+    if (profileSub) {
+        profileSub.innerHTML = `Level 4 Guardian • Joined April 2024<br><i class="fas fa-map-marker-alt" style="color:var(--primary); margin-top:5px;"></i> ${appState.user.location || 'Location not set'}`;
+    }
 
     badgeGrid.innerHTML = appState.badges.map(b => `
         <div class="badge-card ${b.unlocked ? 'unlocked' : 'locked'}">
@@ -217,8 +236,51 @@ function renderProfile() {
 }
 
 function renderDashboard() {
-    document.getElementById('user-points').innerText = appState.user.points.toLocaleString();
-    document.getElementById('user-name-display').innerText = appState.user.name;
+    const user = appState.user;
+    const pointsEl = document.getElementById('user-points');
+    const nameEl = document.getElementById('user-name-display');
+    
+    if (pointsEl) pointsEl.textContent = user.points.toLocaleString();
+    if (nameEl) nameEl.textContent = user.name;
+    
+    // Update progress bar
+    const progressBar = document.getElementById('level-progress-bar');
+    if (progressBar) {
+        const nextLevelPoints = 2000;
+        const progress = (user.points / nextLevelPoints) * 100;
+        progressBar.style.width = `${progress}%`;
+    }
+    
+    renderNearbyHeroes();
+}
+
+function renderNearbyHeroes() {
+    const listContainer = document.getElementById('nearby-heroes-list');
+    if (!listContainer) return;
+
+    // Simulate nearby heroes based on the user's location
+    const location = appState.user.location || "Nearby";
+    const nearbyPool = [
+        { name: "John D.", location: location, points: 1200, avatar: "🦊" },
+        { name: "Sarah K.", location: location, points: 950, avatar: "🐢" },
+        { name: "Mike R.", location: location, points: 1500, avatar: "🦁" }
+    ];
+
+    listContainer.innerHTML = nearbyPool.map(hero => `
+        <div class="card reveal active" style="padding: 15px; animation: fadeIn 0.5s ease-out;">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div style="font-size: 2rem; background: var(--primary-soft); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    ${hero.avatar}
+                </div>
+                <div>
+                    <h4 style="margin: 0;">${hero.name}</h4>
+                    <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;"><i class="fas fa-map-marker-alt" style="color:var(--primary);"></i> ${hero.location}</p>
+                    <p style="font-size: 0.85rem; color: var(--primary); font-weight: 700; margin-top: 4px;">${hero.points} PTS</p>
+                </div>
+            </div>
+            <button class="btn btn-secondary" style="width: 100%; margin-top: 10px; padding: 5px; font-size: 0.8rem;" onclick="alert('Connection request sent to ${hero.name}!')">Connect</button>
+        </div>
+    `).join('');
 }
 
 function renderAvatarGrid() {
@@ -262,50 +324,26 @@ function openCompleteModal(id) {
 
 function handleCreateChallenge(e) {
     if (e) e.preventDefault();
-    console.log("Submit triggered");
-
-    const form = document.getElementById('challenge-form');
-    const titleInput = form.querySelector('input[type="text"]');
-    const descInput = form.querySelector('textarea');
+    
+    const title = document.getElementById('task-name-input').value;
+    const location = document.getElementById('task-location-input').value;
+    const description = document.getElementById('task-desc-input').value;
     const imgPreview = document.getElementById('before-preview');
     
-    if (!titleInput) {
-        console.error("Title input not found");
-        return;
-    }
-
-    const title = titleInput.value;
-    const description = descInput ? descInput.value : "";
-    
-    // Check for image, but provide a high-quality fallback if needed (or alert clearly)
-    let finalImage = imgPreview.src;
-    const isEmptyImage = !finalImage || finalImage === window.location.href || finalImage.length < 100;
-    
-    if (isEmptyImage) {
-        // For this demo, we'll allow a beautiful fallback nature image if the user didn't upload one
-        // but we'll inform them. In production, this would be a strict requirement.
-        finalImage = "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80";
-        console.log("Using fallback image");
-    }
-
     // Create new task object
     const newChallenge = {
         id: Date.now(),
         title: title || "New Cleanup Area",
+        location: location || appState.user.location || "Nearby Spot",
         description: description || "Help restore this location to its natural beauty.",
         status: 'pending',
-        image: finalImage,
+        image: imgPreview.src.length > 100 ? imgPreview.src : "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80",
         points: 500,
         author: appState.user.name || "Eco Hero",
         date: new Date().toLocaleDateString()
     };
 
-    console.log("New Challenge Object:", newChallenge);
-
-    // Update State (Add to top)
-    appState.challenges = [newChallenge, ...appState.challenges];
-    
-    // Save to LocalStorage
+    appState.challenges.unshift(newChallenge);
     saveState();
     
     // Immediate UI Update
@@ -345,11 +383,55 @@ function handleCompleteChallenge(e) {
 }
 
 function handleProfileUpdate(e) {
-    e.preventDefault();
+    if (e) e.preventDefault();
     appState.user.name = document.getElementById('profile-name-input').value || "Eco Hero";
     appState.user.avatar = document.getElementById('profile-emoji-input').value || "👤";
+    appState.user.location = document.getElementById('profile-location-input').value || "Determining...";
     appState.user.isNew = false;
-    saveState(); renderProfile(); renderDashboard(); toggleModal('edit-profile-modal', false);
+    saveState(); 
+    renderProfile(); 
+    renderDashboard(); 
+    toggleModal('edit-profile-modal', false);
+}
+
+function getCurrentLocation() {
+    const locationInput = document.getElementById('profile-location-input');
+    if (!locationInput) return;
+
+    locationInput.value = "Detecting your city...";
+
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(async (position) => {
+            try {
+                const { latitude, longitude } = position.coords;
+                // Using BigDataCloud's free client-side reverse geocoding API
+                const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
+                const data = await response.json();
+                
+                if (data && (data.city || data.locality)) {
+                    const city = data.city || data.locality;
+                    const country = data.countryName || "";
+                    locationInput.value = `${city}${country ? ', ' + country : ''}`;
+                } else {
+                    locationInput.value = `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
+                }
+                console.log("Location detected:", data);
+            } catch (error) {
+                console.error("Geocoding error:", error);
+                locationInput.value = "Location found (Coordinates)";
+            }
+        }, (error) => {
+            console.error("Geolocation error:", error);
+            let msg = "Permission Denied";
+            if (error.code === error.POSITION_UNAVAILABLE) msg = "Location Unavailable";
+            if (error.code === error.TIMEOUT) msg = "Request Timed Out";
+            locationInput.value = msg;
+            alert(`Could not access your location: ${msg}. Please type it manually.`);
+        });
+    } else {
+        alert("Geolocation is not supported by your browser.");
+        locationInput.value = "Not Supported";
+    }
 }
 
 // Handles the 'After' photo upload with strict geo-tag checking
@@ -400,6 +482,85 @@ function previewImage(input, containerId, imgId, badgeId) {
             }
         };
         reader.readAsDataURL(file);
+    }
+}
+
+function renderCommunities() {
+    const grid = document.getElementById('communities-grid');
+    if (!grid) return;
+
+    if (!appState.communities) appState.communities = INITIAL_DATA.communities;
+
+    grid.innerHTML = appState.communities.map(c => `
+        <div class="card reveal active" style="display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden;">
+            ${c.isOwner ? '<div style="position: absolute; top: 0; right: 0; background: var(--primary); color: #fff; padding: 5px 15px; font-size: 0.65rem; font-weight: 800; transform: rotate(45deg) translate(15px, -5px); box-shadow: var(--shadow);">FOUNDER</div>' : ''}
+            <div>
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                    <div style="width: 50px; height: 50px; background: var(--primary-soft); color: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="badge" style="background: var(--accent-blue); color: #fff; display: block; margin-bottom: 5px;">${c.members} Members</span>
+                        <span style="font-size: 0.65rem; color: var(--text-muted);">Founded by <strong>${c.createdBy}</strong></span>
+                    </div>
+                </div>
+                <h3 style="margin-bottom: 10px;">${c.name}</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px;"><i class="fas fa-map-marker-alt" style="color: var(--primary);"></i> ${c.location}</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px;">${c.description}</p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn ${c.isJoined ? 'btn-secondary' : 'btn-primary'}" style="flex: 1;" onclick="toggleJoinCommunity(${c.id})">
+                    ${c.isJoined ? (c.isOwner ? 'Manage' : 'Leave') : 'Join Community'}
+                </button>
+                <button class="btn btn-secondary" style="width: 45px; padding: 0;" onclick="alert('Community Chat coming soon!')" title="Community Chat"><i class="fas fa-comments"></i></button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function handleCreateCommunity(e) {
+    if (e) e.preventDefault();
+    
+    const name = document.getElementById('comm-name-input').value;
+    const location = document.getElementById('comm-location-input').value;
+    const desc = document.getElementById('comm-desc-input').value;
+
+    if (!name) return;
+
+    const newComm = {
+        id: Date.now(),
+        name: name,
+        location: location || "Global",
+        description: desc || "A new community dedicated to making the world a cleaner place.",
+        members: 1,
+        isJoined: true,
+        createdBy: appState.user.name || "Eco Hero",
+        isOwner: true
+    };
+
+    if (!appState.communities) appState.communities = [];
+    appState.communities.unshift(newComm);
+    saveState();
+    
+    renderCommunities();
+    toggleModal('create-community-modal', false);
+    
+    // Clear inputs
+    document.getElementById('comm-name-input').value = '';
+    document.getElementById('comm-location-input').value = '';
+    document.getElementById('comm-desc-input').value = '';
+    
+    alert(`🌳 Welcome to ${name}! You have successfully launched this community.`);
+}
+
+function toggleJoinCommunity(id) {
+    const comm = appState.communities.find(c => c.id === id);
+    if (comm) {
+        comm.isJoined = !comm.isJoined;
+        comm.members += comm.isJoined ? 1 : -1;
+        saveState();
+        renderCommunities();
+        alert(comm.isJoined ? `Joined ${comm.name}! ✨` : `Left ${comm.name}.`);
     }
 }
 
