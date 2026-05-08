@@ -6,6 +6,8 @@
     <title>Dashboard — EcoChallenge</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
     <div class="app-container">
@@ -37,13 +39,17 @@
                     <i class="fas fa-info-circle"></i>
                     <span>How It Works</span>
                 </a>
+                <a href="#" id="logout-btn" class="nav-item" style="margin-top: 20px; color: #ef4444;">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
             </nav>
 
             <div class="sidebar-footer">
                 <a href="profile.html" class="user-snippet">
                     <img src="https://ui-avatars.com/api/?name=Aarav&background=14532d&color=fff" id="sidebar-avatar">
                     <div class="user-snippet-info">
-                        <h4 id="sidebar-name">Aarav</h4>
+                        <h4 id="sidebar-name">Dheeraj</h4>
                         <p><span id="sidebar-points">1,950</span> pts</p>
                     </div>
                 </a>
@@ -55,14 +61,25 @@
             <header class="page-header">
                 <div class="page-title">
                     <h1>Eco Dashboard</h1>
-                    <p>Welcome back, <span id="welcome-name">Hero</span>! Here's your impact today.</p>
+                    <p>Welcome back, <span id="welcome-name" style="font-weight: 700; color: var(--primary);">Hero</span>! Ready for your next cleanup?</p>
                 </div>
                 <div class="header-actions">
-                    <button class="btn btn-primary" onclick="toggleModal('report-modal', true)">
-                        <i class="fas fa-plus"></i> Report Area
+                    <button class="btn btn-primary" onclick="toggleModal('create-challenge-modal', true)">
+                        <i class="fas fa-plus"></i> Report Polluted Area
                     </button>
                 </div>
             </header>
+
+            <!-- Map View Section -->
+            <div class="dashboard-section">
+                <div class="section-head">
+                    <h2>Live Impact Map</h2>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Real-time pollution hotspots and hero locations</p>
+                </div>
+                <div class="card" id="map" style="height: 400px; z-index: 1;">
+                    <!-- Map will be initialized here -->
+                </div>
+            </div>
 
             <!-- Stats Grid -->
             <div class="stats-grid">
@@ -128,7 +145,10 @@
                 </div>
                 <div class="form-group">
                     <label>Location</label>
-                    <input type="text" id="task-location-input" class="form-control" placeholder="City or GPS coords" required>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="task-location-input" class="form-control" placeholder="City or GPS coords" required>
+                        <button type="button" class="btn btn-outline" style="padding: 10px;" onclick="detectLocation('task-location-input')"><i class="fas fa-location-arrow"></i></button>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Description</label>
@@ -143,6 +163,26 @@
             </form>
         </div>
     </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-nav">
+        <a href="index.html" class="mobile-nav-item active">
+            <i class="fas fa-th-large"></i>
+            <span>Dash</span>
+        </a>
+        <a href="challenges.html" class="mobile-nav-item">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>Map</span>
+        </a>
+        <a href="community.html" class="mobile-nav-item">
+            <i class="fas fa-users"></i>
+            <span>Groups</span>
+        </a>
+        <a href="profile.html" class="mobile-nav-item">
+            <i class="fas fa-user-circle"></i>
+            <span>Profile</span>
+        </a>
+    </nav>
 
     <script src="script.js"></script>
 </body>

@@ -6,6 +6,8 @@
     <title>Profile — EcoHero</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
     <div class="app-container">
@@ -37,6 +39,10 @@
                     <i class="fas fa-info-circle"></i>
                     <span>How It Works</span>
                 </a>
+                <a href="#" id="logout-btn" class="nav-item" style="margin-top: 20px; color: #ef4444;">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
             </nav>
 
             <div class="sidebar-footer">
@@ -65,14 +71,19 @@
             </header>
 
             <div class="profile-hero">
-                <div class="profile-avatar-large" id="profile-avatar">👤</div>
+                <div class="profile-avatar-large" id="profile-avatar">
+                    <img src="" id="profile-img" style="display: none;">
+                    <span id="profile-emoji">👤</span>
+                </div>
                 <div class="profile-meta">
                     <h1 id="profile-name">Eco Hero</h1>
-                    <p id="profile-location">Margao, Goa</p>
+                    <div id="profile-rank-container" style="margin-bottom: 10px;"></div>
+                    <p id="profile-location" style="color: var(--text-muted); font-size: 0.9rem;"><i class="fas fa-map-marker-alt"></i> Mallapura, Karnataka</p>
+                    
                     <div class="profile-stats-pill">
                         <div class="stat-pill">
                             <span class="val" id="profile-points">1,950</span>
-                            <span class="lab">Total Points</span>
+                            <span class="lab">Points</span>
                         </div>
                         <div class="stat-pill">
                             <span class="val" id="profile-cleanups">13</span>
@@ -83,35 +94,61 @@
                             <span class="lab">Rank</span>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="dashboard-section">
-                <div class="section-head">
-                    <h2>Achievement Badges</h2>
-                </div>
-                <div class="badge-grid" id="profile-badges">
-                    <!-- Populated by JS -->
-                </div>
-            </div>
-
-            <div class="dashboard-section" style="margin-top: 60px;">
-                <div class="section-head">
-                    <h2>Hero Actions</h2>
-                </div>
-                <div class="grid-layout">
-                    <div class="card" style="padding: 30px; display: flex; align-items: center; gap: 20px; cursor: pointer;" onclick="toggleModal('report-modal', true)">
-                        <div class="stat-icon" style="background: var(--primary-light); color: var(--primary);"><i class="fas fa-bullhorn"></i></div>
-                        <div>
-                            <h3 style="font-size: 1.1rem;">Report Polluted Area</h3>
-                            <p style="font-size: 0.85rem; color: var(--text-muted);">Identify a spot that needs cleaning.</p>
+                    <div style="margin-top: 20px; max-width: 300px;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; margin-bottom: 5px;">
+                            <span>Level 5 Progress</span>
+                            <span>65%</span>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar"></div>
                         </div>
                     </div>
-                    <div class="card" style="padding: 30px; display: flex; align-items: center; gap: 20px; cursor: pointer;" onclick="window.location.href='community.html'">
-                        <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;"><i class="fas fa-users"></i></div>
-                        <div>
-                            <h3 style="font-size: 1.1rem;">Launch a Community</h3>
-                            <p style="font-size: 0.85rem; color: var(--text-muted);">Start a movement in your city.</p>
+                </div>
+            </div>
+
+            <div class="profile-grid">
+                <div class="profile-left-col">
+                    <div class="dashboard-section" style="margin-top: 0;">
+                        <div class="section-head">
+                            <h2>Mystery Rewards</h2>
+                            <p style="font-size: 0.9rem; color: var(--text-muted);">Exclusive perks for every 10 levels</p>
+                        </div>
+                        <div id="mystery-gift-grid">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <div class="dashboard-section">
+                        <div class="section-head">
+                            <h2>Hero Actions</h2>
+                        </div>
+                        <div class="grid-layout">
+                            <div class="card card-interactive" style="padding: 25px; display: flex; align-items: center; gap: 15px;" onclick="toggleModal('report-modal', true)">
+                                <div class="stat-icon" style="background: var(--primary-light); color: var(--primary);"><i class="fas fa-bullhorn"></i></div>
+                                <div>
+                                    <h3 style="font-size: 1rem;">Report Polluted Area</h3>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted);">Identify a spot that needs cleaning.</p>
+                                </div>
+                            </div>
+                            <div class="card card-interactive" style="padding: 25px; display: flex; align-items: center; gap: 15px;" onclick="window.location.href='community.html'">
+                                <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;"><i class="fas fa-users"></i></div>
+                                <div>
+                                    <h3 style="font-size: 1rem;">Launch a Community</h3>
+                                    <p style="font-size: 0.8rem; color: var(--text-muted);">Start a movement in your city.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-right-col">
+                    <div class="dashboard-section" style="margin-top: 0;">
+                        <div class="section-head">
+                            <h2>Achievements</h2>
+                        </div>
+                        <div class="badge-grid" id="profile-badges" style="grid-template-columns: 1fr;">
+                            <!-- Populated by JS -->
                         </div>
                     </div>
                 </div>
@@ -170,6 +207,26 @@
             </form>
         </div>
     </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-nav">
+        <a href="index.html" class="mobile-nav-item">
+            <i class="fas fa-th-large"></i>
+            <span>Dash</span>
+        </a>
+        <a href="challenges.html" class="mobile-nav-item">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>Map</span>
+        </a>
+        <a href="community.html" class="mobile-nav-item">
+            <i class="fas fa-users"></i>
+            <span>Groups</span>
+        </a>
+        <a href="profile.html" class="mobile-nav-item active">
+            <i class="fas fa-user-circle"></i>
+            <span>Profile</span>
+        </a>
+    </nav>
 
     <script src="script.js"></script>
 </body>
