@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard — EcoChallenge</title>
+    <title>Challenges — EcoHero</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -17,11 +17,11 @@
             </a>
             
             <nav class="nav-menu">
-                <a href="index.html" class="nav-item active">
+                <a href="index.html" class="nav-item">
                     <i class="fas fa-th-large"></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="challenges.html" class="nav-item">
+                <a href="challenges.html" class="nav-item active">
                     <i class="fas fa-map-marked-alt"></i>
                     <span>Challenges</span>
                 </a>
@@ -54,61 +54,19 @@
         <main class="main-content">
             <header class="page-header">
                 <div class="page-title">
-                    <h1>Eco Dashboard</h1>
-                    <p>Welcome back, <span id="welcome-name">Hero</span>! Here's your impact today.</p>
+                    <h1>Cleanup Challenges</h1>
+                    <p>Find polluted areas near you and restore them to earn points.</p>
                 </div>
                 <div class="header-actions">
                     <button class="btn btn-primary" onclick="toggleModal('report-modal', true)">
-                        <i class="fas fa-plus"></i> Report Area
+                        <i class="fas fa-bullhorn"></i> Report New Area
                     </button>
                 </div>
             </header>
 
-            <!-- Stats Grid -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fas fa-star"></i></div>
-                    <div class="stat-info">
-                        <h3 id="dash-points">1,950</h3>
-                        <p>Total Points</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;"><i class="fas fa-broom"></i></div>
-                    <div class="stat-info">
-                        <h3 id="dash-cleanups">13</h3>
-                        <p>Cleanups Done</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon" style="background: #fef9c3; color: #854d0e;"><i class="fas fa-medal"></i></div>
-                    <div class="stat-info">
-                        <h3 id="dash-level">Level 4</h3>
-                        <p>Hero Rank</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Dashboard Content -->
             <div class="dashboard-section">
-                <div class="section-head">
-                    <h2>Active Nearby Challenges</h2>
-                    <a href="challenges.html" class="btn btn-outline">Explore All</a>
-                </div>
-                <div class="grid-layout" id="dash-challenges-grid">
+                <div class="grid-layout" id="challenges-grid">
                     <!-- Populated by JS -->
-                </div>
-            </div>
-
-            <div class="dashboard-section">
-                <div class="section-head">
-                    <h2>Top Contributors</h2>
-                    <a href="leaderboard.html" class="btn btn-outline">View Board</a>
-                </div>
-                <div class="card" style="padding: 0;">
-                    <div id="dash-leaderboard-list">
-                        <!-- Populated by JS -->
-                    </div>
                 </div>
             </div>
         </main>
@@ -134,12 +92,25 @@
                     <label>Description</label>
                     <textarea id="task-desc-input" class="form-control" placeholder="Describe the situation..." rows="3"></textarea>
                 </div>
-                <div class="form-group">
-                    <label>Before Photo</label>
-                    <input type="file" id="before-photo-input" class="form-control" accept="image/*" onchange="previewImage(this, 'before-preview')">
-                    <img id="before-preview" style="width: 100%; border-radius: 10px; margin-top: 10px; display: none;">
-                </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Create Challenge</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="complete-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Complete Cleanup</h2>
+                <button class="close-modal" onclick="toggleModal('complete-modal', false)">&times;</button>
+            </div>
+            <form id="complete-form">
+                <div class="form-group">
+                    <label>Upload After Photo (Geo-Tag Required)</label>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px;">Our AI verifies the location matches the reported area.</p>
+                    <input type="file" id="after-photo-input" class="form-control" accept="image/*" onchange="previewImage(this, 'after-preview')" required>
+                    <img id="after-preview" style="width: 100%; border-radius: 10px; margin-top: 10px; display: none;">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Verify & Claim Points</button>
             </form>
         </div>
     </div>

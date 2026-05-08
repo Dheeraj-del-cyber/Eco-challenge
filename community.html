@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community — EcoHero</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="index.html" class="sidebar-logo">
+                <i class="fas fa-seedling"></i>
+                <span>EcoHero</span>
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">
+                    <i class="fas fa-th-large"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="challenges.html" class="nav-item">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Challenges</span>
+                </a>
+                <a href="leaderboard.html" class="nav-item">
+                    <i class="fas fa-trophy"></i>
+                    <span>Leaderboard</span>
+                </a>
+                <a href="community.html" class="nav-item active">
+                    <i class="fas fa-users"></i>
+                    <span>Community</span>
+                </a>
+                <a href="how-it-works.html" class="nav-item">
+                    <i class="fas fa-info-circle"></i>
+                    <span>How It Works</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="profile.html" class="user-snippet">
+                    <img src="https://ui-avatars.com/api/?name=Aarav&background=14532d&color=fff" id="sidebar-avatar">
+                    <div class="user-snippet-info">
+                        <h4 id="sidebar-name">Aarav</h4>
+                        <p><span id="sidebar-points">1,950</span> pts</p>
+                    </div>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="page-header">
+                <div class="page-title">
+                    <h1>Green Communities</h1>
+                    <p>Join local groups or start your own to scale your impact.</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="toggleModal('community-modal', true)">
+                        <i class="fas fa-plus"></i> Launch a Community
+                    </button>
+                </div>
+            </header>
+
+            <div class="dashboard-section">
+                <div class="grid-layout" id="communities-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="community-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Launch a Community</h2>
+                <button class="close-modal" onclick="toggleModal('community-modal', false)">&times;</button>
+            </div>
+            <form id="community-form">
+                <div class="form-group">
+                    <label>Community Name</label>
+                    <input type="text" id="comm-name-input" class="form-control" placeholder="e.g. Goa Beach Warriors" required>
+                </div>
+                <div class="form-group">
+                    <label>Region / City</label>
+                    <input type="text" id="comm-location-input" class="form-control" placeholder="e.g. North Goa" required>
+                </div>
+                <div class="form-group">
+                    <label>Goal / Description</label>
+                    <textarea id="comm-desc-input" class="form-control" placeholder="What is this community's mission?" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Community</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
