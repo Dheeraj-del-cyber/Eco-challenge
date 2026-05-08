@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How It Works — EcoHero</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="index.html" class="sidebar-logo">
+                <i class="fas fa-seedling"></i>
+                <span>EcoHero</span>
+            </a>
+            
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">
+                    <i class="fas fa-th-large"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="challenges.html" class="nav-item">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Challenges</span>
+                </a>
+                <a href="leaderboard.html" class="nav-item">
+                    <i class="fas fa-trophy"></i>
+                    <span>Leaderboard</span>
+                </a>
+                <a href="community.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span>Community</span>
+                </a>
+                <a href="how-it-works.html" class="nav-item active">
+                    <i class="fas fa-info-circle"></i>
+                    <span>How It Works</span>
+                </a>
+                <a href="#" id="logout-btn" class="nav-item" style="margin-top: 20px; color: #ef4444;">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="profile.html" class="user-snippet">
+                    <img src="https://ui-avatars.com/api/?name=Aarav&background=14532d&color=fff" id="sidebar-avatar">
+                    <div class="user-snippet-info">
+                        <h4 id="sidebar-name">Aarav</h4>
+                        <p><span id="sidebar-points">1,950</span> pts</p>
+                    </div>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="page-header">
+                <div class="page-title">
+                    <h1>How It Works</h1>
+                    <p>Learn how to become an Eco Hero in 5 simple steps.</p>
+                </div>
+            </header>
+
+            <div class="dashboard-section">
+                <div class="grid-layout">
+                    <div class="card" style="padding: 30px;">
+                        <div class="stat-icon" style="margin-bottom: 20px;"><i class="fas fa-map-marker-alt"></i></div>
+                        <h3>1. Identify a Spot</h3>
+                        <p style="color: var(--text-muted); margin-top: 10px;">Find a polluted area or waste dump in your vicinity that needs attention.</p>
+                    </div>
+                    <div class="card" style="padding: 30px;">
+                        <div class="stat-icon" style="margin-bottom: 20px; background: #e0f2fe; color: #0369a1;"><i class="fas fa-camera"></i></div>
+                        <h3>2. Report & Photo</h3>
+                        <p style="color: var(--text-muted); margin-top: 10px;">Upload a "Before" photo with geo-tagging to create a new challenge for the community.</p>
+                    </div>
+                    <div class="card" style="padding: 30px;">
+                        <div class="stat-icon" style="margin-bottom: 20px; background: #fef9c3; color: #854d0e;"><i class="fas fa-trash-alt"></i></div>
+                        <h3>3. Take Action</h3>
+                        <p style="color: var(--text-muted); margin-top: 10px;">Clean the area yourself or organize a group cleanup event with your community.</p>
+                    </div>
+                    <div class="card" style="padding: 30px;">
+                        <div class="stat-icon" style="margin-bottom: 20px; background: #f0fdf4; color: #166534;"><i class="fas fa-check-circle"></i></div>
+                        <h3>4. Verify Cleanup</h3>
+                        <p style="color: var(--text-muted); margin-top: 10px;">Upload an "After" photo. Our AI verifies the location and rewards your effort.</p>
+                    </div>
+                    <div class="card" style="padding: 30px;">
+                        <div class="stat-icon" style="margin-bottom: 20px; background: #fae8ff; color: #86198f;"><i class="fas fa-trophy"></i></div>
+                        <h3>5. Earn & Level Up</h3>
+                        <p style="color: var(--text-muted); margin-top: 10px;">Earn points, unlock exclusive badges, and climb the global leaderboard!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 40px; padding: 40px; background: linear-gradient(135deg, var(--primary-light), #fff); border: none;">
+                <div style="display: flex; align-items: center; gap: 30px;">
+                    <i class="fas fa-leaf" style="font-size: 3rem; color: var(--primary);"></i>
+                    <div>
+                        <h2 style="margin-bottom: 10px;">Ready to start your first challenge?</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 20px;">Join thousands of heroes making the world cleaner, one spot at a time.</p>
+                        <a href="challenges.html" class="btn btn-primary">Get Started Now</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-nav">
+        <a href="index.html" class="mobile-nav-item">
+            <i class="fas fa-th-large"></i>
+            <span>Dash</span>
+        </a>
+        <a href="challenges.html" class="mobile-nav-item">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>Map</span>
+        </a>
+        <a href="community.html" class="mobile-nav-item">
+            <i class="fas fa-users"></i>
+            <span>Groups</span>
+        </a>
+        <a href="profile.html" class="mobile-nav-item">
+            <i class="fas fa-user-circle"></i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
